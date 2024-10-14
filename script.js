@@ -18,7 +18,7 @@ const questions = [
   ];
   
   let currentQuestionIndex = 0;
-  let points = 5;
+  let points = 10;
   let currentTime = 60;
   let unmaskLevel = 0;  // Spårar avmaskningsnivån
   

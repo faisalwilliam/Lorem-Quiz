@@ -10,6 +10,7 @@ html, body {
   /* Flexbox används för att centrera innehåll */
   body {
     width: 450px;                /* Fixerad bredd för quiz-kontainer */
+    height: 500px;
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
@@ -35,7 +36,7 @@ html, body {
   section {
     border-radius: 5px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Lätt skugga runt sektion */
-    margin-bottom: 20px;  /* Lägger till mellanrum mellan sektionerna */
+    margin-bottom: 5px;  /* Lägger till mellanrum mellan sektionerna */
   }
   
   /* Stil för fråga */
@@ -74,7 +75,7 @@ html, body {
   /* Döljer element */
   .hidden {
     display: none;
-    padding-bottom: 5px;
+
   }
 
   
