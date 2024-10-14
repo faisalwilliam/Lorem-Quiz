@@ -1,28 +1,26 @@
 /* Gör så att html och body täcker hela skärmen */
 html, body {
-    height: 90%;
+    height: 100%;
     margin: 20%;
+    margin-top:0;
+    margin-bottom: 0;
     padding: 0;
-    padding-top: 5%;
-    bottom: 5%;
   }
   
   /* Flexbox används för att centrera innehåll */
   body {
-    display: flex;               /* Aktiverar flexbox på body */
-    justify-content: center;     /* Centrering horisontellt */
-    align-items: center;         /* Centrering vertikalt */
+   /* display: flex;           */    /* Aktiverar flexbox på body */
+    /*justify-content: center;   */  /* Centrering horisontellt */
+   /* align-items: center;     */    /* Centrering vertikalt */
   
-    width: 500px;                /* Fixerad bredd för quiz-kontainer */
-    padding: 20px;
+    width: 450px;                /* Fixerad bredd för quiz-kontainer */
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
-<<<<<<< HEAD
   
     /* Flex-riktning och innehållsjustering */
     flex-direction: column;
-    overflow: hidden;
+   /* overflow: hidden;*/
   
     /* Konturstil för quiz-kontainer */
     border: 2px solid black;
@@ -31,21 +29,6 @@ html, body {
   }
   
   /* Header med gradient-bakgrund */
-=======
-    justify-items: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 500px;
-    padding: 20px;
-    border: 2px solid black;
-    border-radius: 10px;
-    background-color: #3e308d;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
->>>>>>> 682da1b3afd940a879994de16b3fad1a756a2eca
   header {
     background-image: linear-gradient(45deg, #6afb87, #5cbcfc);
     color: white;
@@ -97,5 +80,4 @@ html, body {
   .hidden {
     display: none;
   }
-
   
