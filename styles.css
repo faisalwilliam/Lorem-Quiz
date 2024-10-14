@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  
+  header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+  }
+  
+  #question {
+    font-size: 1.5em;
+    margin: 20px 0;
+  }
+  
+  .masked {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: color 1s ease-in-out;
+  }
+  
+  .unmasked {
+    color: black;
+  }
+  
+  .answer {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .answer:hover {
+    background-color: #45a049;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  

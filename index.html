@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lorem Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Lorem Quiz</h1>
+    <div id="timer">Tid kvar: <span id="time">60</span> sek</div>
+  </header>
+
+  <main>
+    <section id="question-container">
+      <p id="question" class="masked"></p>
+    </section>
+
+    <section id="answers"></section>
+
+    <div id="score">Poäng: <span id="points">5</span></div>
+  </main>
+
+  <div id="result-page" class="hidden">
+    <h2>Ditt resultat</h2>
+    <p id="final-score"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
