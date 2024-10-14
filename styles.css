@@ -9,10 +9,6 @@ html, body {
   
   /* Flexbox används för att centrera innehåll */
   body {
-   /* display: flex;           */    /* Aktiverar flexbox på body */
-    /*justify-content: center;   */  /* Centrering horisontellt */
-   /* align-items: center;     */    /* Centrering vertikalt */
-  
     width: 450px;                /* Fixerad bredd för quiz-kontainer */
     font-family: Arial, sans-serif;
     text-align: center;
@@ -20,7 +16,6 @@ html, body {
   
     /* Flex-riktning och innehållsjustering */
     flex-direction: column;
-   /* overflow: hidden;*/
   
     /* Konturstil för quiz-kontainer */
     border: 2px solid black;
@@ -47,7 +42,7 @@ html, body {
   #question {
     font-size: 1.5em;
     margin: 20px 0;
-    color: rgba(0, 0, 0, 0.3);  /* Delvis synlig text från början */
+    color: rgb(0, 0, 0); 
     transition: color 0.5s ease-in-out;
   }
   
@@ -63,7 +58,7 @@ html, body {
   .answer {
     display: block;
     margin: 10px auto;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     background-image: linear-gradient(45deg, #6acffb, #5cc9fc);  /* Gradient-bakgrund */
     color: white;
@@ -73,11 +68,14 @@ html, body {
   
   /* Ändrar färg vid hovring */
   .answer:hover {
-    background-color: #45a049;
+    background-color: #4595a0;
   }
   
   /* Döljer element */
   .hidden {
     display: none;
+    padding-bottom: 5px;
   }
+
+  
   
