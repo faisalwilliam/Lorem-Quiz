@@ -99,4 +99,4 @@ const questions = [
   
   // Starta quiz vid sidladdning
   showQuestion();
-  
+   /* Hej Marrii Tack för hjälp*/
