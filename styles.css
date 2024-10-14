@@ -18,6 +18,7 @@ html, body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
+<<<<<<< HEAD
   
     /* Flex-riktning och innehållsjustering */
     flex-direction: column;
@@ -30,6 +31,21 @@ html, body {
   }
   
   /* Header med gradient-bakgrund */
+=======
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #3e308d;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+>>>>>>> 682da1b3afd940a879994de16b3fad1a756a2eca
   header {
     background-image: linear-gradient(45deg, #6afb87, #5cbcfc);
     color: white;
@@ -81,4 +97,5 @@ html, body {
   .hidden {
     display: none;
   }
+
   

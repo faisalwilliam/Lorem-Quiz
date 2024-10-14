@@ -104,4 +104,4 @@ const questions = [
   
   // Starta quiz när sidan laddas
   showQuestion();
-  
+   /* Hej Marrii Tack för hjälp*/
