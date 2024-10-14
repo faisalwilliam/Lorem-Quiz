@@ -1,44 +1,83 @@
-body {
+/* Gör så att html och body täcker hela skärmen */
+html, body {
+    height: 90%;
+    margin: 20%;
+    padding: 0;
+    padding-top: 5%;
+    bottom: 5%;
+  }
+  
+  /* Flexbox används för att centrera innehåll */
+  body {
+    display: flex;               /* Aktiverar flexbox på body */
+    justify-content: center;     /* Centrering horisontellt */
+    align-items: center;         /* Centrering vertikalt */
+  
+    width: 500px;                /* Fixerad bredd för quiz-kontainer */
+    padding: 20px;
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
+  
+    /* Flex-riktning och innehållsjustering */
+    flex-direction: column;
+    overflow: hidden;
+  
+    /* Konturstil för quiz-kontainer */
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   }
   
+  /* Header med gradient-bakgrund */
   header {
-    background-color: #4CAF50;
+    background-image: linear-gradient(45deg, #6afb87, #5cbcfc);
     color: white;
     padding: 10px;
+    border-radius: 5px;  /* Rundar hörnen på header */
   }
   
+  /* Sektionerna för varje fråga */
+  section {
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Lätt skugga runt sektion */
+    margin-bottom: 20px;  /* Lägger till mellanrum mellan sektionerna */
+  }
+  
+  /* Stil för fråga */
   #question {
     font-size: 1.5em;
     margin: 20px 0;
+    color: rgba(0, 0, 0, 0.3);  /* Delvis synlig text från början */
+    transition: color 0.5s ease-in-out;
   }
   
-  .masked {
-    color: rgba(0, 0, 0, 0);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: color 1s ease-in-out;
+  /* Avmaskeringsnivåer för frågetexten */
+  .unmask-1 {
+    color: rgba(0, 0, 0, 0.6);  /* Frågan blir mer synlig */
+  }
+  .unmask-2 {
+    color: rgba(0, 0, 0, 1);    /* Frågan är helt synlig */
   }
   
-  .unmasked {
-    color: black;
-  }
-  
+  /* Stil för svarsknappar */
   .answer {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
     border: none;
-    background-color: #4CAF50;
+    background-image: linear-gradient(45deg, #6acffb, #5cc9fc);  /* Gradient-bakgrund */
     color: white;
     cursor: pointer;
+    border-radius: 5px;  /* Rundade hörn */
   }
   
+  /* Ändrar färg vid hovring */
   .answer:hover {
     background-color: #45a049;
   }
   
+  /* Döljer element */
   .hidden {
     display: none;
   }

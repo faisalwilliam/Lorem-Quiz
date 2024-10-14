@@ -20,6 +20,7 @@ const questions = [
   let currentQuestionIndex = 0;
   let points = 5;
   let currentTime = 60;
+  let unmaskLevel = 0;  // Spårar avmaskningsnivån
   
   const questionElement = document.getElementById('question');
   const answersContainer = document.getElementById('answers');
@@ -28,7 +29,7 @@ const questions = [
   const resultPage = document.getElementById('result-page');
   const finalScore = document.getElementById('final-score');
   
-  // Starta timer när sidan laddas
+  // Starta timer
   const timer = setInterval(() => {
     currentTime--;
     timerDisplay.textContent = currentTime;
@@ -37,13 +38,15 @@ const questions = [
     }
   }, 1000);
   
-  // Funktion för att visa nästa fråga
+  // Visa fråga och svarsalternativ
   function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.textContent = currentQuestion.question;
-    questionElement.classList.add('masked');  // Maskera frågan från början
   
-    // Rensa gamla svar och skapa nya knappar för aktuella alternativ
+    // Återställ avmaskningsnivå och stil för varje ny fråga
+    unmaskLevel = 0;
+    questionElement.className = '';
+  
     answersContainer.innerHTML = '';
     currentQuestion.options.forEach(option => {
       const button = document.createElement('button');
@@ -54,28 +57,30 @@ const questions = [
     });
   }
   
-  // Kontrollera om svaret är korrekt
+  // Kontrollera svar
   function checkAnswer(selectedOption) {
     const currentQuestion = questions[currentQuestionIndex];
   
     if (selectedOption === currentQuestion.correct) {
-      // Om rätt svar -> gå till nästa fråga
-      nextQuestion();
+      nextQuestion();  // Om rätt svar, gå till nästa fråga
     } else {
-      // Om fel svar -> minska poäng och avmaskera fråga
-      points -= 2;  // -1 för avmaskning och -1 för fel svar
-      unmaskQuestion();
+      points -= 2;  // -1 för avmaskning, -1 för fel svar
+      unmaskQuestion();  // Avmaskera fråga lite mer
       updateScore();
     }
   }
   
-  // Avmaskera frågan
+  // Avmaskera fråga gradvis
   function unmaskQuestion() {
-    questionElement.classList.remove('masked');
-    questionElement.classList.add('unmasked');
+    unmaskLevel++;
+    if (unmaskLevel === 1) {
+      questionElement.classList.add('unmask-1');
+    } else if (unmaskLevel === 2) {
+      questionElement.classList.add('unmask-2');
+    }
   }
   
-  // Uppdatera poängvisningen
+  // Uppdatera poäng
   function updateScore() {
     scoreDisplay.textContent = points;
   }
@@ -84,9 +89,9 @@ const questions = [
   function nextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
-      showQuestion();  // Visa nästa fråga
+      showQuestion();
     } else {
-      endQuiz();  // Om inga fler frågor -> avsluta quiz
+      endQuiz();
     }
   }
   
@@ -97,6 +102,6 @@ const questions = [
     resultPage.classList.remove('hidden');
   }
   
-  // Starta quiz vid sidladdning
+  // Starta quiz när sidan laddas
   showQuestion();
   
