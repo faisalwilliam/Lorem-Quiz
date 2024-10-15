@@ -1,4 +1,5 @@
 // Array med frågor och svar
+/*
 const questions = [
     { 
       question: "Vilken stad är huvudstad i Sverige?", 
@@ -51,7 +52,65 @@ const questions = [
         correct: "Kväve" 
       }
   ];
-  
+  */
+  const questions = [
+    { 
+      question: "Vilken stad är huvudstad i Sverige?", 
+      options: ["Stockholm", "Göteborg", "Malmö", "Uppsala"], 
+      correct: "Stockholm" 
+    },
+    { 
+      question: "Vilket år började andra världskriget?", 
+      options: ["1939", "1914", "1945", "1925"], 
+      correct: "1939" 
+    },
+    { 
+      question: "Vilket djur är känt som 'kungen av djungeln'?", 
+      options: ["Lejon", "Elefant", "Tiger", "Gorilla"], 
+      correct: "Lejon" 
+    },
+
+    { 
+      question: "Vilket land vann fotbolls-VM 2018?", 
+      options: ["Sverige", "Frankrike", "Tysland", "Spanien"], 
+      correct: "Frankrike" 
+    },
+    { 
+      question: "Villken kommunen är mindre?", 
+      options: ["Lycksele", "Nordmaling", "Bjurholm", "Vännas"], 
+      correct: "Bjurholm" 
+    },
+    { 
+      question: " vilken kommun lägar i Bästerbotton ?", 
+      options: ["Umeå", "Borlänge", "boden", "Piteå"], 
+      correct: "Umeå" 
+    },
+
+    { 
+      question: "Vilken kontinent har flest länder'?", 
+      options: ["Asien", "Europa", "Africa","Nordamerika"], 
+      correct: "Africa" 
+    },
+
+    { 
+      question: " Vilket land har den största befolkningen ?", 
+      options: ["China", "Sudan", "Amerika", "India"], 
+      correct: "China" 
+    },
+    { 
+      question: "Vilket år kollapsade Sovjetunionen??", 
+      options: ["191", "185", "194", "192"], 
+      correct: "191" 
+    },
+    { 
+      question: "Hur många ben finns det i människokroppen??", 
+      options: ["205", "100", "206", "1"], 
+      correct: "206" 
+    },
+    
+  ];
+
+
   let currentQuestionIndex = 0;
   let points = 10;
   let currentTime = 60;
