@@ -14,7 +14,42 @@ const questions = [
       question: "Vilket djur är känt som 'kungen av djungeln'?", 
       options: ["Lejon", "Elefant", "Tiger", "Gorilla"], 
       correct: "Lejon" 
-    }
+    },
+    { 
+        question: "Vad heter Sveriges längsta flod?", 
+        options: ["Klarälven", "Göta älv", "Dalälven", "Torne älv"], 
+        correct: "Klarälven" 
+      },
+      { 
+        question: "Vilken planet är närmast solen?", 
+        options: ["Merkurius", "Venus", "Jorden", "Mars"], 
+        correct: "Merkurius" 
+      },
+      { 
+        question: "Vilken metall är huvudingrediensen i stål?", 
+        options: ["Järn", "Koppar", "Aluminium", "Silver"], 
+        correct: "Järn" 
+      },
+      { 
+        question: "Vilket hav ligger mellan Sverige och Finland?", 
+        options: ["Östersjön", "Nordsjön", "Atlanten", "Medelhavet"], 
+        correct: "Östersjön" 
+      },
+      { 
+        question: "Vilken stad är känd för sitt lutande torn?", 
+        options: ["Pisa", "Rom", "Paris", "Venedig"], 
+        correct: "Pisa" 
+      },
+      { 
+        question: "Vad heter den högsta bergstoppen i världen?", 
+        options: ["Mount Everest", "K2", "Kilimanjaro", "Mont Blanc"], 
+        correct: "Mount Everest" 
+      },
+      { 
+        question: "Vilken gas utgör största delen av jordens atmosfär?", 
+        options: ["Kväve", "Syre", "Koldioxid", "Argon"], 
+        correct: "Kväve" 
+      }
   ];
   
   let currentQuestionIndex = 0;
