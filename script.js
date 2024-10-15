@@ -106,7 +106,7 @@ const questions = [
       question: "Hur många ben finns det i människokroppen??", 
       options: ["205", "100", "206", "1"], 
       correct: "206" 
-    },
+    }
     
   ];
 

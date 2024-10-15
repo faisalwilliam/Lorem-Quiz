@@ -87,7 +87,6 @@ html, body {
   margin-top:0;
   margin-bottom: 0;
   padding: 6%;
-  background-color: #a35e92;
 }
 
 /* Flexbox används för att centrera innehåll */
@@ -97,7 +96,7 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   background-color: #f0f0f0;
-  background-color: #3e308d;
+ 
 
   /* Flex-riktning och innehållsjustering */
   flex-direction: column;
