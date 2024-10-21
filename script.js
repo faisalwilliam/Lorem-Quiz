@@ -170,6 +170,6 @@
     resultPage.classList.remove('hidden'); // Visar resultatsidan
   }
   
-  // Startar quizet när sidan laddas
-  startQuiz();
-  
+  // Starta quiz när sidan laddas
+  showQuestion();
+   /* Hej Marrii Tack för hjälp*/
