@@ -28,41 +28,43 @@
       correct: "Bjurholm" 
     },
     { 
-      question: " vilken kommun lägar i Bästerbotton ?", 
-      options: ["Umeå", "Borlänge", "boden", "Piteå"], 
+      question: "Vilken kommun lägar i Bästerbotton?", 
+      options: ["Umeå", "Borlänge", "Boden", "Piteå"], 
       correct: "Umeå" 
     },
 
     { 
-      question: "Vilken kontinent har flest länder'?", 
+      question: "Vilken kontinent har flest länder?", 
       options: ["Asien", "Europa", "Africa","Nordamerika"], 
       correct: "Africa" 
     },
 
     { 
-      question: " Vilket land har den största befolkningen ?", 
+      question: "Vilket land har den största befolkningen?", 
       options: ["China", "Sudan", "Amerika", "India"], 
       correct: "China" 
     },
     { 
-      question: "Vilket år kollapsade Sovjetunionen??", 
+      question: "Vilket år kollapsade Sovjetunionen?", 
       options: ["191", "185", "194", "192"], 
       correct: "191" 
     },
     { 
-      question: "Hur många ben finns det i människokroppen??", 
+      question: "Hur många ben finns det i människokroppen?", 
       options: ["205", "100", "206", "1"], 
       correct: "206" 
     }
     
   ];
 
-
   let currentQuestionIndex = 0;
-  let points = 10;
-  let currentTime = 60;
-  let unmaskLevel = 0;  // Spårar avmaskningsnivån
+  let points = 10; // Startpoäng
+  let timeLeft = 60; // Tid kvar i sekunder
+  let unmaskLevel = 0; // Spårar hur mycket frågan har avmaskerats
+  let timerInterval; // Sparar intervallet för timer
+  let firstAttempt = true; // Flagga för att spåra om det är första försöket
   
+  // Hämta element från DOM
   const questionElement = document.getElementById('question');
   const answersContainer = document.getElementById('answers');
   const scoreDisplay = document.getElementById('points');
@@ -70,79 +72,104 @@
   const resultPage = document.getElementById('result-page');
   const finalScore = document.getElementById('final-score');
   
-  // Starta timer
-  const timer = setInterval(() => {
-    currentTime--;
-    timerDisplay.textContent = currentTime;
-    if (currentTime === 0) {
-      endQuiz();
-    }
-  }, 1000);
+  // Startar quizet
+  function startQuiz() {
+    showQuestion(); // Visa första frågan
+    startTimer(); // Starta timer
+    updateScore(); // Uppdatera poäng direkt vid start
+  }
   
-  // Visa fråga och svarsalternativ
+  // Visar aktuell fråga och svarsalternativ
   function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
-    questionElement.textContent = currentQuestion.question;
+    questionElement.textContent = currentQuestion.question; // Sätter texten för frågan
+    unmaskLevel = 0; // Nollställer avmaskeringsnivån
+    firstAttempt = true; // Återställer flaggan för första försöket
+    questionElement.className = 'masked'; // Återställ stil
   
-    // Återställ avmaskningsnivå och stil för varje ny fråga
-    unmaskLevel = 0;
-    questionElement.className = '';
+    answersContainer.innerHTML = ''; // Rensar tidigare svarsalternativ
   
-    answersContainer.innerHTML = '';
+    // Skapar knappar för varje svarsalternativ
     currentQuestion.options.forEach(option => {
       const button = document.createElement('button');
       button.textContent = option;
       button.classList.add('answer');
-      button.addEventListener('click', () => checkAnswer(option));
+      button.addEventListener('click', () => checkAnswer(option)); // Lägg till klickhändelse
       answersContainer.appendChild(button);
     });
   }
   
-  // Kontrollera svar
+  // Kontrollera om svaret är korrekt
   function checkAnswer(selectedOption) {
     const currentQuestion = questions[currentQuestionIndex];
   
     if (selectedOption === currentQuestion.correct) {
-      nextQuestion();  // Om rätt svar, gå till nästa fråga
+      if (firstAttempt) {
+        points += Math.floor(timeLeft / 10); // Bonuspoäng för snabb svar vid första försöket
+      }
+      updateScore(); // Uppdaterar poäng
+      nextQuestion(); // Går till nästa fråga
     } else {
-      points -= 2;  // -1 för avmaskning, -1 för fel svar
-      unmaskQuestion();  // Avmaskera fråga lite mer
-      updateScore();
+      if (firstAttempt) {
+        points -= 2; // Straff (-1 för avmaskering och -1 för fel) vid första försöket
+      } else {
+        points = points; // Poängen förändras inte efter första försöket
+      }
+      firstAttempt = false; // Ändrar flaggan för att visa att första försöket har passerat
+      unmaskQuestion(); // Avmaskerar lite mer av frågan
+      updateScore(); // Uppdaterar poäng
     }
   }
   
-  // Avmaskera fråga gradvis
+  // Avmaskerar frågan steg för steg
   function unmaskQuestion() {
-    unmaskLevel++;
+    unmaskLevel++; // Ökar avmaskeringsnivån
     if (unmaskLevel === 1) {
-      questionElement.classList.add('unmask-1');
+      questionElement.classList.add('unmask-1'); // Första avmaskeringsnivån
     } else if (unmaskLevel === 2) {
-      questionElement.classList.add('unmask-2');
+      questionElement.classList.add('unmask-2'); // Full avmaskering
     }
   }
   
-  // Uppdatera poäng
+  // Uppdaterar poäng på sidan
   function updateScore() {
-    scoreDisplay.textContent = points;
+    scoreDisplay.textContent = points; // Sätter poängen i DOM
   }
   
-  // Visa nästa fråga eller avsluta quiz
+  // Går vidare till nästa fråga eller avslutar quizet
   function nextQuestion() {
-    currentQuestionIndex++;
+    currentQuestionIndex++; // Ökar frågeindex
     if (currentQuestionIndex < questions.length) {
-      showQuestion();
+      showQuestion(); // Visar nästa fråga
     } else {
-      endQuiz();
+      endQuiz(); // Avslutar quizet
     }
   }
   
-  // Avsluta quiz och visa resultat
-  function endQuiz() {
-    clearInterval(timer);
-    finalScore.textContent = `Du fick ${points} poäng!`;
-    resultPage.classList.remove('hidden');
+  // Startar timer och räknar ned
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timeLeft--; // Minskar tiden med 1 sekund
+      timerDisplay.textContent = timeLeft; // Uppdaterar tidsvisning
+  
+      if (timeLeft <= 12) {
+        timerDisplay.classList.add('low-time'); // Ändrar färg om mindre än 20% återstår
+      }
+  
+      if (timeLeft === 0) {
+        clearInterval(timerInterval); // Stoppar timern
+        nextQuestion(); // Går vidare om tiden tar slut
+      }
+    }, 1000);
   }
   
-  // Starta quiz när sidan laddas
-  showQuestion();
-   /* Hej Marrii Tack för hjälp*/
+  // Avslutar quizet och visar resultatet
+  function endQuiz() {
+    clearInterval(timerInterval); // Stoppar timern
+    finalScore.textContent = `Du fick ${points} poäng!`; // Visar slutpoängen
+    resultPage.classList.remove('hidden'); // Visar resultatsidan
+  }
+  
+  // Startar quizet när sidan laddas
+  startQuiz();
+  
