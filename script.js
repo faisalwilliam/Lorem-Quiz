@@ -58,7 +58,7 @@
   ];
 
   let currentQuestionIndex = 0;
-  let points = 10; // Startpoäng
+  let points = 5; // Startpoäng
   let timeLeft = 60; // Tid kvar i sekunder
   let unmaskLevel = 0; // Spårar hur mycket frågan har avmaskerats
   let timerInterval; // Sparar intervallet för timer
