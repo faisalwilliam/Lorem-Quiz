@@ -92,3 +92,113 @@ section {
   color: red;
 }
 
+
+.answer:hover {
+  background-color: #dddddd;
+}
+#score {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+/* Avmaskning */
+.masked {
+  overflow: hidden;
+  position: relative; /* För att positionera :before */
+}
+.masked::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+  animation: unmask 2s ease-in-out forwards;
+}
+.unmask-1::before {
+  width: 75%;
+}
+.unmask-2::before {
+  width: 50%;
+}
+@keyframes unmask {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+/* Resultatsida */
+
+#result-page{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+#result-page h2 {
+  margin-bottom: 10px;
+}
+
+#result-page {
+  text-align: center;
+  
+  background-color: #411ca5;
+  padding: 0px;
+  border-radius: 5px;
+  margin-top: 12%;
+  margin-left: 10%;
+}
+#result-page.hidden {
+  display: none;
+}
+
+/* Basic styles for the quiz */
+#question-container {
+  text-align: center;
+  margin: 20px;
+}
+#question {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.answer {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.answer:hover {
+  background-color: #ddd;
+
+}
+#score {
+  margin-top: 20px;
+  
+}
+
+/* Styles for the result page */
+
+#result-page {
+  text-align: center;
+  margin: 7px;
+  background-color: #4f547c;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 13%;
+  margin-left: 5%;
+  
+}
+#result-page.hidden {
+  display: none;
+  
+}

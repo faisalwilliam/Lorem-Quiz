@@ -120,6 +120,20 @@
       updateScore(); // Uppdaterar poäng
     }
   }
+    function handleAnswerClick(event) {
+      const selectedAnswer = event.target;
+      const answerValue = parseInt(selectedAnswer.dataset.answer);
+      // Byt ut "red" och "green" mot dina egna färger
+      if (answerValue === -1) {
+        selectedAnswer.style.color = "red"; 
+      } else if (answerValue === +1) {
+        selectedAnswer.style.color = "green"; 
+      }
+    }
+    
+
+
+  
   
   // Avmaskerar frågan steg för steg
   function unmaskQuestion() {
@@ -173,3 +187,174 @@
   // Starta quiz när sidan laddas
   showQuestion();
    /* Hej Marrii Tack för hjälp*/
+   function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.correct) {
+      points += 2; // Ge 2 poäng för rätt svar
+      nextQuestion(); // Gå till nästa fråga
+      
+    } else {
+      points -= 2; // Ta bort 2 poäng för fel svar
+      unmaskQuestion(); // Avmaskera frågan lite mer
+      updateScore();
+    }
+ 
+   }
+
+  function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.correct) {
+      points += 2; // Award 2 points for a correct answer
+      nextQuestion(); // Go to the next question
+     
+    } else {
+      points -= 2; // Deduct 2 points for a wrong answer
+      unmaskQuestion(); // Unmask the question slightly more
+      updateScore();
+     
+    }
+    // Show the "Rättresult-page" after checking the answer 
+    if (selectedOption === currentQuestion.correct) {
+      document.getElementById('result-page').innerHTML = '<p>Du har svarat rätt!</p>';
+      document.getElementById('result-page').classList.remove('hidden');
+    } else {
+      document.getElementById('result-page').innerHTML = '<p>Du har svarat fel!</p>';
+      document.getElementById('result-page').classList.remove('hidden');
+    }
+  }
+  
+
+// Function to handle answer clicks
+function handleAnswerClick(event) {
+  const selectedAnswer = event.target;
+  const answerValue = parseInt(selectedAnswer.dataset.answer);
+
+  if (answerValue === -1) {
+    selectedAnswer.style.color = "red"; 
+  } else if (answerValue === +1) {
+    selectedAnswer.style.color = "green";                 
+  }
+    
+  // Now call checkAnswer to evaluate the selected option
+  checkAnswer(selectedAnswer.textContent);
+
+  let totalPoints = 10;
+  // Loopa igenom alla frågor och addera poängen
+  for (let i = 0; i < questions.length; i++) {
+    totalPoints += questions[i].points;
+  }
+  console.log("Total poäng:", totalPoints);
+
+
+}
+// Function to check the answer
+function checkAnswer(selectedOption) {
+  const currentQuestion = questions[currentQuestionIndex];
+  
+  if (selectedOption === currentQuestion.correct) {
+    points += 2; // Award 2 points for a correct answer
+    nextQuestion(); // Go to the next question
+   
+  } else {
+    points -= 2; // Deduct 2 points for a wrong answer
+    unmaskQuestion(); // Unmask the question slightly more
+    updateScore();
+   
+  }
+    
+}
+  
+
+// Function to check the answer
+function checkAnswer(selectedOption) {
+  const currentQuestion = questions[currentQuestionIndex];
+  if (selectedOption === currentQuestion.correct) {
+    points += 2; // Award 2 points for a correct answer
+    nextQuestion(); // Go to the next question
+    
+  } else {
+    points -= 2; // Deduct 2 points for a wrong answer
+    unmaskQuestion(); // Unmask the question slightly more
+    updateScore();
+    
+  }
+                                                                                                                         
+}
+  // Avmaskera fråga gradvis
+  function unmaskQuestion() {
+    unmaskLevel++;
+    if (unmaskLevel === 1) {
+      questionElement.classList.add("unmask-1");
+    } else if (unmaskLevel === 2) {
+      questionElement.classList.add("unmask-2");
+    }
+  }
+  // Uppdatera poängdisplayen
+  function updateScore() {
+    scoreDisplay.textContent = points;
+  }
+  // Visa nästa fråga eller avsluta quizet
+  function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      showQuestion();
+    } else {
+      endQuiz();
+    }
+  }
+  // Avsluta quizet och visa resultatet
+  function endQuiz() {
+    clearInterval(timer); // Stoppar timern
+    finalScore.textContent = `Du fick ${points} poäng!`;
+    resultPage.classList.remove("hidden"); // Visar resultat-sidan
+  }
+  // Starta quizet när sidan laddas
+  showQuestion();
+
+
+  // Färghantering för svar (detta är nu separat)
+  const answers = document.querySelectorAll(".answers");
+    answers.forEach((answer) => {
+    answers.addEventListener("click", handleAnswerClick);
+  });
+  
+    // Avmaskera fråga gradvis
+    function unmaskQuestion() {
+      unmaskLevel++;
+      if (unmaskLevel === 1) {
+        questionElement.classList.add('unmask-1');
+      } else if (unmaskLevel === 2) {
+        questionElement.classList.add('unmask-2');
+      }
+    }
+    
+    // Uppdatera poäng
+    function updateScore() {
+      scoreDisplay.textContent = points;
+    }
+    
+    // Visa nästa fråga eller avsluta quiz
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        endQuiz();
+      }
+    }
+    
+    // Avsluta quiz och visa resultat
+    function endQuiz() {
+      clearInterval(timer);
+      finalScore.textContent = `Du fick ${points} poäng!`;
+      resultPage.classList.remove('hidden');
+    }
+    
+    // Starta quiz när sidan laddas
+    showQuestion();
+     
+  
+    
+    
+
+  
