@@ -74,123 +74,125 @@
   const finalScore = document.getElementById('final-score');
   
   // Startar quizet
-function startQuiz() {
-  startTimer();
-  showQuestion();
-  updateScore();
-}
-
-  // Starta timer
-  const timer = setInterval(() => {
-    currentTime--;
-    timerDisplay.textContent = currentTime;
-    if (currentTime === 0) {
+  function startQuiz() {
+    timeLeft = 60; // Återställ tid
+    startTimer();  // Startar timer
+    showQuestion(); // Visar första frågan
+    updateScore();  // Uppdaterar poängvisning
+  }
+  
+  // Visar aktuell fråga
+  function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    unmaskLevel = 0; // Nollställ avmaskningsnivå
+    firstAttempt = true; // Nollställ första försöket
+    questionElement.className = 'masked'; // Maskera fråga
+    answersContainer.innerHTML = ''; // Töm svarsknappar
+  
+    // Skapa och visa svarsknappar
+    currentQuestion.options.forEach(option => {
+      const button = document.createElement('button');
+      button.textContent = option;
+      button.classList.add('answer');
+      button.addEventListener('click', () => handleAnswer(option));
+      answersContainer.appendChild(button);
+    });
+  
+    resultMessage.textContent = ''; // Rensa tidigare feedback
+  }
+  
+  // Hanterar svarsklick
+  function handleAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+  
+    // Om svaret är korrekt
+    if (selectedOption === currentQuestion.correct) {
+      if (firstAttempt) points += 2;  // Lägg till poäng vid första försöket
+      showFeedback(true, "+2 poäng"); 
+    } else {
+      if (firstAttempt) points -= 2;  // Ta bort poäng vid första fel
+      firstAttempt = false;
+      unmaskQuestion(); // Avmaskera frågan gradvis
+      showFeedback(false, "-2 poäng");
+    }
+  
+    updateScore(); // Uppdatera poäng
+  
+    // Avsluta quiz om poäng är mindre än 0
+    if (points < 0) {
       endQuiz();
+    } else {
+      // Gå vidare till nästa fråga efter 1 sekund
+      setTimeout(nextQuestion, 1000);
     }
-  }, 1000);
-
-// Visar aktuell fråga
-function showQuestion() {
-  const currentQuestion = questions[currentQuestionIndex];
-  questionElement.textContent = currentQuestion.question;
-  unmaskLevel = 0;
-  firstAttempt = true;
-  questionElement.className = 'masked';
-  answersContainer.innerHTML = '';
-
-  currentQuestion.options.forEach(option => {
-    const button = document.createElement('button');
-    button.textContent = option;
-    button.classList.add('answer');
-    button.addEventListener('click', () => handleAnswer(option));
-    answersContainer.appendChild(button);
-  });
-
-  resultMessage.textContent = ''; // Rensar feedback
-}
-
-// Hanterar svarsklick
-function handleAnswer(selectedOption) {
-  const currentQuestion = questions[currentQuestionIndex];
-
-  if (selectedOption === currentQuestion.correct) {
-    if (firstAttempt) points += 2;  
-    showFeedback(true, "+2 poäng");
-  } else {
-    if (firstAttempt) points -= 2;  
-    firstAttempt = false;
-    unmaskQuestion();
-    showFeedback(false, "-2 poäng");
   }
-
-  updateScore(); // updatera poäng
-  if(points < 0){
-    endQuiz();
-  }else{
-  setTimeout(nextQuestion, 1000); // 1 сек
+  
+  // Visar feedback med färg och text
+  function showFeedback(isCorrect, pointsText) {
+    resultMessage.textContent = isCorrect ? `Rätt! ${pointsText}` : `Fel! ${pointsText}`;
+    resultMessage.style.color = isCorrect ? "green" : "red";
+    resultMessage.classList.remove('hidden');
   }
-}
-
-// Visar feedback med färg och text
-function showFeedback(isCorrect, pointsText) {
-  resultMessage.textContent = isCorrect ? `Rätt! ${pointsText}` : `Fel! ${pointsText}`;
-  resultMessage.style.color = isCorrect ? "green" : "red";
-  resultMessage.classList.remove('hidden');
-}
-
-// Avmaskerar fråga
-function unmaskQuestion() {
-  unmaskLevel++;
-  if (unmaskLevel === 1) {
-    questionElement.classList.add('unmask-1'); // Första avmaskeringsnivån
-  } else if (unmaskLevel === 2) {
-    questionElement.classList.add('unmask-2'); // Full avmaskering
-  }
-}
-
-// Uppdaterar poängdisplay
-function updateScore() {
-  scoreDisplay.textContent = points;
-}
-
-// Går vidare till nästa fråga eller avslutar quizet
-function nextQuestion() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
-    endQuiz();
-  }
-}
-
-// Startar timer
-function startTimer() {
-  clearInterval(timerInterval); 
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft;
-
-    if (timeLeft <= 12) {
-      timerDisplay.classList.add('low-time');
+  
+  // Avmaskerar fråga stegvis
+  function unmaskQuestion() {
+    unmaskLevel++;
+    if (unmaskLevel === 1) {
+      questionElement.classList.add('unmask-1'); // Första avmaskningsnivå
+    } else if (unmaskLevel === 2) {
+      questionElement.classList.add('unmask-2'); // Full avmaskning
     }
-
-    if (timeLeft === 0) {
-      endQuiz();
+  }
+  
+  // Uppdaterar poängdisplay
+  function updateScore() {
+    scoreDisplay.textContent = points;
+  }
+  
+  // Går vidare till nästa fråga eller avslutar quizet
+  function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      showQuestion(); // Visa nästa fråga
+    } else {
+      endQuiz(); // Avsluta quiz om inga fler frågor finns
     }
-  }, 1000);
-}
-
-// Avslutar quiz och visar resultat
-function endQuiz() {
-  clearInterval(timer);
-  finalScore.textContent = `Du fick ${points} poäng!`;
-  resultPage.classList.remove('hidden');
-  const answerz = document.querySelectorAll('.answer');
-  answerz.forEach((button) => {
-    button.classList.add('disabled');
-    button.disabled = true;
-});
-}
-
-// Startar quiz när sidan laddas
-startQuiz();
+  }
+  
+  // Startar timer
+  function startTimer() {
+    clearInterval(timerInterval); // Rensa tidigare timer
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = timeLeft;
+  
+      // Ändra färg när tiden är låg
+      if (timeLeft <= 12) {
+        timerDisplay.classList.add('low-time');
+      }
+  
+      // Avsluta quiz om tiden tar slut
+      if (timeLeft === 0) {
+        endQuiz();
+      }
+    }, 1000);
+  }
+  
+  // Avslutar quiz och visar resultat
+  function endQuiz() {
+    clearInterval(timerInterval); // Stoppa timer
+    finalScore.textContent = `Du fick ${points} poäng!`; // Visa slutpoäng
+    resultPage.classList.remove('hidden'); // Visa resultatsidan
+  
+    // Inaktivera svarsknappar
+    const answerz = document.querySelectorAll('.answer');
+    answerz.forEach((button) => {
+      button.classList.add('disabled');
+      button.disabled = true;
+    });
+  }
+  
+  // Startar quiz när sidan laddas
+  startQuiz();
+  
